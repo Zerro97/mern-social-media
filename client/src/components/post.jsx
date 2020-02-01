@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PostImage from './image';
-import styles from './post.css';
+import styles from './post.module.css';
 import { Link } from 'react-router-dom';
 
 export default class Header extends Component {
