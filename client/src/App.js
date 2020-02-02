@@ -1,39 +1,36 @@
-import React from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import React, { Fragment } from 'react'
+import { Router, Route, Switch } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
 
-import Navbar from "./components/navbar"
+import 'bootstrap'
 
-import SignUp from "./routes/signup.jsx";
-import LogIn from "./routes/login.jsx";
-import Home from "./routes/home.jsx";
+import Navigation from './components/Navigation'
 
-import Images from "./routes/images.jsx";
-import Videos from "./routes/videos.jsx";
-import Audios from "./routes/audios.jsx";
+import CreateDashboard from './routes/CreateDashboard'
+import CreatePost from './routes/CreatePost'
+import Profile from './routes/Profile'
+import SignUp from './routes/SingUp'
+import Login from './routes/Login'
+import About from './routes/About'
+import Home from './routes/Home'
 
-import ImagesCreate from "./routes/images_create.jsx";
-import VideosCreate from "./routes/videos_create.jsx";
-import AudiosCreate from "./routes/audios_create.jsx";
 
-function App() {
-  return (
-    <Router>
-      <Navbar />
-      
-      <Route path="/home" component={Home} />
-      <Route path="/login" component={LogIn} />
-      <Route path="/signup" component={SignUp} />
+import Sample from './routes/Sample'
 
-      <Route path="/audios" component={Audios} />
-      <Route path="/videos" component={Videos} />
-      <Route path="/images" component={Images} />
-
-      <Route path="/audios_create" component={AudiosCreate} />
-      <Route path="/videos_create" component={VideosCreate} />
-      <Route path="/images_create" component={ImagesCreate} />
+export const App = () => (
+  <Fragment>
+    <Router history={createBrowserHistory()}>
+      <Navigation />
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route path="/create" component={CreateDashboard}/>
+        <Route path="/create/post" component={CreatePost}/>
+        <Route path="/profile" component={Profile}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/signup" component={SignUp}/>
+        <Route path="/about" component={About}/>
+        <Route path="/sample" component={Sample}/>
+      </Switch>
     </Router>
-  );
-}
-
-export default App;
+  </Fragment>
+)
