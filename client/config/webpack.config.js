@@ -29,12 +29,34 @@ const config = {
   ],
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+      // Read in js files and convert them to older js code for compatibility
+      { 
+        test: /\.js$/, 
+        exclude: /node_modules/, 
+        loader: 'babel-loader' 
+      },
+      // Global CSS
       {
-        test: /\.scss$/,
+        test: /\.s(a|c)ss$/,
+        exclude: /\.module\.s(a|c)ss$/,
         use: [
           'style-loader',
           'css-loader',
+          'sass-loader'
+        ]
+      },
+      // CSS Modules
+      {
+        test: /\.module\.s(a|c)ss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true
+            }
+          },
           'sass-loader'
         ]
       },

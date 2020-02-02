@@ -1,9 +1,6 @@
-/**
- * A dashboard for any kind of creation. Currently it can only create post
- */
 import React, { Component, Fragment } from 'react'
 
-export default class CreateDashboard extends Component {
+export default class CreateGroup extends Component {
   constructor(props) {
     super(props);
 
@@ -16,9 +13,9 @@ export default class CreateDashboard extends Component {
     return (
       <Fragment>
         <div className="jumbotron">
-          <h1 className="display-4">Create</h1>
+          <h1 className="display-4">Create Group</h1>
           <p className="lead">
-            You can create posts and groups here!<br/>
+            This is a social media web application built to practice MERN stack!<br/>
           </p>
         </div>
         <div>

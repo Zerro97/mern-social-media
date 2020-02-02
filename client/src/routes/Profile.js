@@ -15,7 +15,7 @@ export default class Profile extends Component {
         <div className="jumbotron">
           <h1 className="display-4">Profile</h1>
           <p className="lead">
-            This is a social media web application built to practice MERN stack!<br/>
+            Welcome User!<br/>
           </p>
         </div>
         <div>

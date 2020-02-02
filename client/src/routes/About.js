@@ -1,14 +1,28 @@
-import React, { Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import dog from '../assets/images/dog.png'
 
-const About = () => (
-  <Fragment>
-    <p>The main contributors are alicoding
-    (<a href="https://github.com/alicoding" rel="noopener noreferrer" target="_blank">https://github.com/alicoding</a>)
-      and pgerochi
-      (<a href="https://github.com/pgerochi" rel="noopener noreferrer" target="_blank">https://github.com/pgerochi)</a></p>
-    Random photo of my dog. <img src={dog} className="small-img"/>
-  </Fragment>
-)
+export default class Home extends Component {
+  constructor(props) {
+    super(props);
 
-export default About
+    this.state = {
+
+    }
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="jumbotron">
+          <h1 className="display-4">Hello, World!</h1>
+          <p className="lead">
+            This is a social media web application built to practice MERN stack!<br/>
+          </p>
+        </div>
+        <div>
+
+        </div>
+      </Fragment>
+    )
+  }
+}

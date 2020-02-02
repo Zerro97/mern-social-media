@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import Post from '../components/PostBox'
 
 export default class Home extends Component {
   constructor(props) {
@@ -9,18 +10,29 @@ export default class Home extends Component {
     }
   }
 
+  // Fetch post data
+  componentDidMount() {
+    /*axios.post(this.port + '/login', user)
+        .then(res => console.log(res.data));
+
+    this.setState({
+        username: '',
+        password: '',
+    })*/
+  }
+
+  fetchPost() {
+    let postArray = [];
+
+    
+
+    return postArray;
+  }
+
   render() {
     return (
       <Fragment>
-        <div className="jumbotron">
-          <h1 className="display-4">Hello, World!</h1>
-          <p className="lead">
-            This is a social media web application built to practice MERN stack!<br/>
-          </p>
-        </div>
-        <div>
-
-        </div>
+        <Post></Post>
       </Fragment>
     )
   }
