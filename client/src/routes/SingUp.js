@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import AlertMsg from '../components/AlertMsg'
 import axios from 'axios';
 
 export default class SignUpRoute extends Component {
@@ -20,6 +21,7 @@ export default class SignUpRoute extends Component {
       firstname: '',
       lastname: '',
       email: '',
+      visible: false,
     }
   }
 
@@ -53,8 +55,9 @@ export default class SignUpRoute extends Component {
     })
   }
 
-  onSubmit(e) {
+  async onSubmit(e) {
     e.preventDefault();
+    let visible = false;
 
     const user = {
       username: this.state.username,
@@ -64,12 +67,16 @@ export default class SignUpRoute extends Component {
       email: this.state.email,
     }
 
-    axios.post(this.port + '/users', user)
+    await axios.post(this.port + '/users', user)
       .then(function(res){
         if(res.data.auth == true && res.data.token != undefined){
           sessionStorage.setItem('token', res.data.token);
         }
-      });
+      })
+      .catch(function(err){
+        visible = true;
+        console.log("Error in login");
+      })
 
     this.setState({
       username: '',
@@ -77,6 +84,7 @@ export default class SignUpRoute extends Component {
       firstname: '',
       lastname: '',
       email: '',
+      visible: visible,
     })
   }
 
@@ -130,6 +138,7 @@ export default class SignUpRoute extends Component {
               <input type="submit" value="Create User" className="btn btn-primary" />
             </div>
           </form>
+          <AlertMsg visible={this.state.visible} message="User already exist! Use different username"/>
         </div>
       </Fragment>
     )
