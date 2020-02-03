@@ -60,14 +60,15 @@ Client folder contains react related files. Client-side and server-side is separ
 #### Client
 <img src="https://github.com/Zerro97/Harvest-App/blob/master/screenshots/folder_client.png" alt="Start Screen" height="140px" width="160px"/>
 
+* **__mocks__:** Folder containing docker files
+* **.circleci:** 
+* **config:** Webpack config files. Webpack compiles all the js and css files into a single file
 * **node_modules:** All the dependencies/libraries used for development
-* **public**
-    * **favicon.ico:** The website icon shown on tab
-    * **index.html:** The root html file at top of DOM. Used in react
-    * **manifest.json:** Json file that describes the application
 * **src:** All the react related files
-* **config-overrides.js:** Used to override webpack configuration to allow css modules
+* **.babelrc:** Babel converts new JS codes to older version for compatibility of different browsers
+* **.editorconfig:** File that ensures consistent coding style (ex. space vs tabs)
 * **package.json:**
+* **postcss.config.js:**
 
 #### Notes
 You need to run "npm install" in this folder to download all the dependencies used in front-end development<br>
@@ -76,12 +77,12 @@ You need to run "npm install" in this folder to download all the dependencies us
 <img src="https://github.com/Zerro97/Harvest-App/blob/master/screenshots/folder_src.png" alt="Start Screen" height="300px" width="180px"/>
 
 * **components:** Folder that contains react components that make up part of a webpage. Think of it as classes or building blocks of website. Example could include the navigation bar.
-* **images:** Images used in the website
+* **assets:** Folder that contains all the images and icons
 * **routes:** Folder that contains react components that make up one webpage. The files in routes folder are being called in App.js file.
-* **App.js/App.css:** App.js file defines the client side routes. For example, if the user types "/sermons", app.js file determines which file to display on screen through react router. App.css file is simply a css file for App.js file. Currently, App.css file is not used
-* **index.js/index.css:** index.js file uses App.js and connects it to index.html. Basically it is what pushes all the react components to the html file.
-* **logo.svg:** This is not used
-* **serviceWorker.js:**
+* **styles:** Folder that contains scss/sass files. These files are compiled into one css file by webpack. I'm also using css modules
+* **App.js:** App.js file defines the client side routes. For example, if the user types "/sermons", app.js file determines which file to display on screen through react router.
+* **config.js:** Works with .env file where it modularizes different environment variables. Currently not used and I might remove it.
+* **index.js/index.html:** index.js file imports App.js root component and index.html uses index.js to load all the components
 
 #### Notes
 Adding a webpage would involve modifying app.js file to define the client-side route and then making a file in the routes folder.<br>
@@ -104,33 +105,34 @@ Server side routes are used for restful API calls and accessing database.<br>
 | Route                                   | Login Required |
 |-----------------------------------------|----------------|
 | /                                       |                |
-| /videos/                                |                |
-| /videos/create                          | ✔︎              |
-| /videos/`<sermon_id>`                   |                |
-| /videos/`<sermon_id>`/edit              | ✔︎              |
-| /audios/                                |                |                
-| /audios/create                          | ✔︎              |
-| /audios/`<audio_id>`                    |                |                
-| /audios/`<audio_id>`/edit               | ✔︎              |
-| /images/                                |                |  
-| /images/create                          | ✔︎              |             
-| /images/`<audio_id>`                    |                |                
-| /images/`<audio_id>`/edit               | ✔︎              |
-
+| /about/                                 |                |
+| /create/                                |                |
+| /create/post                            | ✔︎              |
+| /create/group                           | ✔︎              |
+| /post/                                  |                |
+| /post/`<post_id>`                       |                |
+| /post/`<post_id>`/edit                  | ✔︎              |
+| /profile/                               |                |
+| /profile/`<profile_id>`                 |                |
+| /profile/`<profile_id>`/edit            | ✔︎              |
+| /login/                                 |                |
+| /signup/                                |                |
 
 
 ### Server side (localhost:5000)
-| Route                                   | Auth Required | Admin | Token Required | Get | Post | Put | Delete |
-|-----------------------------------------|---------------|-------|----------------|-----|------|-----|--------|
-| /login                                  | ✔︎             |       |                |     | ✔︎    |     |        |
-| /users/                                 |               |       |                |     | ✔︎    |     |        |
-| /users/`<users_id>`                     |               |       | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
-| /videos/                                |               |       | ✔︎              | ✔︎   | ✔︎    |     |        |
-| /videos/`<sermon_id>`                   |               |       | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
-| /audios/                                |               |       | ✔︎              | ✔︎   | ✔︎    |     |        |
-| /audios/`<audio_id>`                    |               |       | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
-| /images/                                |               |       | ✔︎              | ✔︎   | ✔︎    |     |        |
-| /images/`<announcement_id>`             |               |       | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
+| Route                                   | Auth Required | Token Required | Get | Post | Put | Delete |
+|-----------------------------------------|---------------|----------------|-----|------|-----|--------|
+| /login                                  | ✔︎             |                |     | ✔︎    |     |        |
+| /users/                                 |               |                |     | ✔︎    |     |        |
+| /users/`<users_id>`                     |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
+| /post/                                  |               | ✔︎              | ✔︎   | ✔︎    | ✔︎   | ✔︎      |
+| /post/`<post_id>`                       |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
+| /videos/                                |               | ✔︎              | ✔︎   | ✔︎    |     |        |
+| /videos/`<sermon_id>`                   |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
+| /audios/                                |               | ✔︎              | ✔︎   | ✔︎    |     |        |
+| /audios/`<audio_id>`                    |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
+| /images/                                |               | ✔︎              | ✔︎   | ✔︎    |     |        |
+| /images/`<image_id>`                    |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
 
 
 #### Notes
