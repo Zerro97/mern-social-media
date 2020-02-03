@@ -30,8 +30,8 @@ export default class UserBox extends Component {
         <div className={styles.container}>
             <img src={Image} className={styles.profileImage}></img>
             <div className={styles.rightContainer}>
-                <div>{this.state.userName}</div>
-                <div>{this.state.date}</div>
+                <div className={styles.userName}>{this.state.userName}</div>
+                <div className={styles.date}>{this.state.date}</div>
             </div>
         </div>
       </Fragment>

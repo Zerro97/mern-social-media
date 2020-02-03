@@ -39,7 +39,11 @@ export default class LogInRoute extends Component {
     }
 
     axios.post(this.port + '/login', user)
-      .then(res => console.log(res.data));
+      .then(function(res){
+        if(res.data.auth == true && res.data.token != undefined){
+          sessionStorage.setItem('token', res.data.token);
+        }
+      });
 
     this.setState({
       username: '',

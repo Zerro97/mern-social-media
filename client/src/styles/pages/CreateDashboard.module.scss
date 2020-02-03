@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    padding: 0px 100px;
+}
+
+.createBox {
+    width: 400px;
+    height: 400px;
+}

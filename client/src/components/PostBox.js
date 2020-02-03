@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import UserBox from "./UserBox";
+import HeaderImage from '../assets/images/default-image.jpg';
 import styles from '../styles/components/PostBox.module.scss';
 
 export default class PostBox extends Component {
@@ -8,7 +9,7 @@ export default class PostBox extends Component {
 
         this.state = {
             title: "Hi",
-            description: "",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             image: "",
             comment: "",
 
@@ -31,11 +32,19 @@ export default class PostBox extends Component {
     render() {
         return (
             <Fragment>
-                <div className="border rounded">
-                    <div className={styles.title}>{this.state.title}</div>
-                    <UserBox/>
-                    <div className={styles.description}>{this.state.description}</div>
-                    <div>{this.state.description}</div>
+                <div className={styles.container + " border rounded"}>
+                    <div className={styles.innerContainer}>
+                        <div className={styles.title}>{this.state.title}</div>
+                        <div className={styles.userBox}>
+                            <UserBox/>
+                        </div>
+                    </div>
+
+                    <img src={HeaderImage} className={styles.headerImage}></img>
+
+                    <div className={styles.innerContainer}>
+                        <div className={styles.description}>{this.state.description}</div>
+                    </div>
                 </div>
             </Fragment>
         )

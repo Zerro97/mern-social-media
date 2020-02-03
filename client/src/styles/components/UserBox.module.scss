@@ -3,10 +3,6 @@
     flex-direction: row;
 }
 
-.leftContainer{
-
-}
-
 .profileImage{
     width: 64px;
     height: 64px;
@@ -19,4 +15,12 @@
 
     margin-left: 10px;
     margin-top: 10px;
+}
+
+.userName{
+    font-weight: bold;
+}
+
+.date{
+    color: #969696;
 }

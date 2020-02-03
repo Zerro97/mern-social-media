@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import styles from '../styles/components/FriendBox.module.scss';
+import UserBox from "./UserBox";
 
 export default class FriendBox extends Component {
   constructor(props) {
@@ -12,14 +14,11 @@ export default class FriendBox extends Component {
   render() {
     return (
       <Fragment>
-        <div className="jumbotron">
-          <h1 className="display-4">Profile</h1>
-          <p className="lead">
-            Welcome User!<br/>
-          </p>
-        </div>
-        <div>
-
+        <div className={styles.container + " border rounded"}>
+          <UserBox/>
+          <UserBox/>
+          <UserBox/>
+          <UserBox/>
         </div>
       </Fragment>
     )

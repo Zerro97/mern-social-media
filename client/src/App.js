@@ -7,7 +7,9 @@ import 'bootstrap'
 import Navigation from './components/Navigation'
 
 import CreateDashboard from './routes/CreateDashboard'
+import CreateGroup from './routes/CreateGroup'
 import CreatePost from './routes/CreatePost'
+
 import Profile from './routes/Profile'
 import SignUp from './routes/SingUp'
 import Login from './routes/Login'
@@ -24,7 +26,8 @@ export const App = () => (
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/create" component={CreateDashboard}/>
-        <Route path="/create/post" component={CreatePost}/>
+        <Route path="/create_post" component={CreatePost}/>
+        <Route path="/create_group" component={CreateGroup}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={SignUp}/>

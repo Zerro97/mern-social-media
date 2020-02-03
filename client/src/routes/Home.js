@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import Post from '../components/PostBox'
+import PostBox from '../components/PostBox'
+import FriendBox from '../components/FriendBox'
+import styles from '../styles/pages/Home.module.scss';
 
 export default class Home extends Component {
   constructor(props) {
@@ -32,7 +34,14 @@ export default class Home extends Component {
   render() {
     return (
       <Fragment>
-        <Post></Post>
+        <div className={styles.container}>
+          <div className={styles.leftContainer}>
+            <PostBox/>
+          </div>
+          <div className={styles.rightContainer}>
+            <FriendBox/>
+          </div>
+        </div>
       </Fragment>
     )
   }
