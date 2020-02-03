@@ -35,7 +35,7 @@ With MERN stack web application, there are front-end and back-end side to develo
 
 
 #### Root (backend files + client folder)
-<img src="https://github.com/Zerro97/mern-social-media/blob/master/screenshots/folder_root1.png" alt="Start Screen" height="350px" width="200px"/>
+<img src="https://github.com/Zerro97/mern-social-media/blob/master/screenshots/folder_root1.png" alt="Start Screen" height="400px" width="200px"/>
 
 * **client:** Folder containing all the front-end related files
 * **middlesware:** Folder containing all the express middleware functions. Example include checkToken function, which checks if the request contains token (check if the user is logged in) [Explanation on middleware](https://medium.com/@agoiabeladeyemi/a-simple-explanation-of-express-middleware-c68ea839f498).
@@ -58,7 +58,7 @@ Client folder contains react related files. Client-side and server-side is separ
 
 
 #### Client
-<img src="https://github.com/Zerro97/mern-social-media/blob/master/screenshots/folder_client1.png" alt="Start Screen" height="140px" width="160px"/>
+<img src="https://github.com/Zerro97/mern-social-media/blob/master/screenshots/folder_client1.png" alt="Start Screen" height="320px" width="180px"/>
 
 * **__mocks__:** Folder containing docker files
 * **.circleci:** 
@@ -74,7 +74,7 @@ Client folder contains react related files. Client-side and server-side is separ
 You need to run "npm install" in this folder to download all the dependencies used in front-end development<br>
 
 #### Src
-<img src="https://github.com/Zerro97/mern-social-media/blob/master/screenshots/folder_src1.png" alt="Start Screen" height="300px" width="180px"/>
+<img src="https://github.com/Zerro97/mern-social-media/blob/master/screenshots/folder_src1.png" alt="Start Screen" height="270px" width="170px"/>
 
 * **components:** Folder that contains react components that make up part of a webpage. Think of it as classes or building blocks of website. Example could include the navigation bar.
 * **assets:** Folder that contains all the images and icons
