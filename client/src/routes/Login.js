@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import axios from 'axios';
 import AlertMsg from '../components/AlertMsg'
-import TokenContext from '../contexts/TokenContext'
+import { TokenContext } from '../contexts/TokenContext'
 
 const LogIn = () => {
   // Defining states
@@ -11,6 +11,9 @@ const LogIn = () => {
 
   // Defining port
   const port = process.env.PORT || "http://localhost:5000";
+
+  // Defining token context
+  const { token, dispatch } = useContext(TokenContext);
 
   // When submit button is pressed
   const handleSubmit = async (e) => {
@@ -25,12 +28,12 @@ const LogIn = () => {
     await axios.post(port + '/login', user)
       .then(function(res){
         if(res.data.auth == true && res.data.token != undefined){
-          sessionStorage.setItem('token', res.data.token);
+          dispatch({ type: 'ADD_TOKEN', token: res.data.token });
         }
       })
       .catch(function(err){
         visible = true;
-        console.log("Error in login");
+        console.log("Error in login", err);
       })
 
       setUsername('');

@@ -1,14 +1,9 @@
-import uuid from 'uuid/v4';
-
-export const tokenReducer = (state, action) => {
+export const TokenReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TOKEN':
-        return [...state, {
-            token: action.token,
-            id: uuid()}
-        ]
+        return {token: action.token};
     case 'REMOVE_TOKEN':
-        return state.filter(token => token.id !== action.id);
+        return null;
     default: {
         throw new Error(`Unhandled action type: ${action.type}`)
     }
