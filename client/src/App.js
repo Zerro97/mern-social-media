@@ -17,27 +17,16 @@ import About from './routes/About'
 import Home from './routes/Home'
 
 import Sample from './routes/Sample'
-
-const tokenContext = React.createContext();
+import TokenProvider from './contexts/TokenContext'
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      token: sessionStorage.getItem('token'),
-      // Define setter method to update token
-      setToken: (token) => {
-        // Persist data to session storage and update state to trigger re-render 
-        sessionStorage.setItem('token', `${ token }`)
-        this.setState({ token })
-      },
-    }
   }
 
   render(){
     return(
-      <tokenContext.Provider value={this.state}>
+      <TokenProvider>
         <Router history={createBrowserHistory()}>
           <Navigation />
           <Switch>
@@ -52,7 +41,7 @@ export default class App extends Component {
             <Route path="/sample" component={Sample}/>
           </Switch>
         </Router>
-      </tokenContext.Provider>
+      </TokenProvider>
     )
   }
 }

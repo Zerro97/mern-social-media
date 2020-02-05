@@ -1,47 +1,28 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import AlertMsg from '../components/AlertMsg'
-//import {port} from '../config';
+import TokenContext from '../contexts/TokenContext'
 
-export default class LogInRoute extends Component {
-  constructor(props) {
-    super(props);
+const LogIn = () => {
+  // Defining states
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [visible, setVisible] = useState(false);
 
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  // Defining port
+  const port = process.env.PORT || "http://localhost:5000";
 
-    this.port = process.env.PORT || "http://localhost:5000";
-
-    this.state = {
-      username: '',
-      password: '',
-      visible: false,
-    }
-  }
-
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value
-    })
-  }
-
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value
-    })
-  }
-
-  async onSubmit(e) {
+  // When submit button is pressed
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let visible = false;
 
     const user = {
-      username: this.state.username,
-      password: this.state.password,
+      username: username,
+      password: password,
     }
 
-    await axios.post(this.port + '/login', user)
+    await axios.post(port + '/login', user)
       .then(function(res){
         if(res.data.auth == true && res.data.token != undefined){
           sessionStorage.setItem('token', res.data.token);
@@ -52,51 +33,46 @@ export default class LogInRoute extends Component {
         console.log("Error in login");
       })
 
-    this.setState({
-      username: '',
-      password: '',
-      visible: visible
-    })
+      setUsername('');
+      setPassword('');
+      setVisible(visible);
   }
 
-  render() {
-    return (
-      //<tokenContext.Consumer>
-        //{ (setToken) => (
-            <Fragment>
-              <div className="jumbotron">
-                <h1 className="display-4 text-center">Log In</h1>
-              </div>
-      
-              <div className="container mt-3">
-                <form onSubmit={this.onSubmit}>
-                  <div className="form-group"> 
-                    <label>Username: </label>
-                    <input  type="text"
-                        required
-                        className="form-control"
-                        value={this.state.username}
-                        onChange={this.onChangeUsername}
-                        />
-                  </div>
-                  <div className="form-group"> 
-                    <label>Password: </label>
-                    <input type="text"
-                        required
-                        className="form-control"
-                        value={this.state.password}
-                        onChange={this.onChangePassword}
-                        />
-                  </div>
-                  <div className="form-group">
-                    <input type="submit" value="Log In" className="btn btn-primary" />
-                  </div>
-                </form>
-                <AlertMsg visible={this.state.visible} message="Wrong username and password!"/>
-              </div>
-            </Fragment>
-          //)}
-      //</tokenContext.Consumer>
-    )
-  }
+  // Render
+  return (
+    <Fragment>
+      <div className="jumbotron">
+        <h1 className="display-4 text-center">Log In</h1>
+      </div>
+
+      <div className="container mt-3">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group"> 
+            <label>Username: </label>
+            <input  type="text"
+                required
+                className="form-control"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                />
+          </div>
+          <div className="form-group"> 
+            <label>Password: </label>
+            <input type="text"
+                required
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+          </div>
+          <div className="form-group">
+            <input type="submit" value="Log In" className="btn btn-primary" />
+          </div>
+        </form>
+        <AlertMsg visible={visible} message="Wrong username and password!"/>
+      </div>
+    </Fragment>
+  );
 }
+
+export default LogIn;

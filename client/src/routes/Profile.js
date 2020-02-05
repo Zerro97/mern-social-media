@@ -1,27 +1,20 @@
 import React, { Component, Fragment } from 'react'
 
-export default class Profile extends Component {
-  constructor(props) {
-    super(props);
+const Profile = () => {
+  //const { books } = useContext(BookContext);
+  return (
+    <Fragment>
+      <div className="jumbotron">
+        <h1 className="display-4">Profile</h1>
+        <p className="lead">
+          Welcome User!<br/>
+        </p>
+      </div>
+      <div>
 
-    this.state = {
-
-    }
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <div className="jumbotron">
-          <h1 className="display-4">Profile</h1>
-          <p className="lead">
-            Welcome User!<br/>
-          </p>
-        </div>
-        <div>
-
-        </div>
-      </Fragment>
-    )
-  }
+      </div>
+    </Fragment>
+  );
 }
+
+export default Profile;

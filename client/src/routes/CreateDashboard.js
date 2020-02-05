@@ -5,33 +5,26 @@ import React, { Component, Fragment } from 'react'
 import CreateBox from '../components/CreateBox'
 import styles from '../styles/pages/CreateDashboard.module.scss';
 
-export default class CreateDashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    }
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <div className="jumbotron">
-          <h1 className="display-4">Create</h1>
-          <p className="lead">
-            You can create posts and groups here!<br/>
-          </p>
+const CreateDashboard = () => {
+  //const { books } = useContext(BookContext);
+  return (
+    <Fragment>
+      <div className="jumbotron">
+        <h1 className="display-4">Create</h1>
+        <p className="lead">
+          You can create posts and groups here!<br/>
+        </p>
+      </div>
+      <div className={styles.container}>
+        <div className={styles.createBox}>
+          <CreateBox color="#95c4fc" title="Post"/>
         </div>
-        <div className={styles.container}>
-          <div className={styles.createBox}>
-            <CreateBox color="#95c4fc" title="Post"/>
-          </div>
-          <div className={styles.createBox}>
-            <CreateBox color="#ff837a" title="Group"/>
-          </div>
+        <div className={styles.createBox}>
+          <CreateBox color="#ff837a" title="Group"/>
         </div>
-      </Fragment>
-    )
-  }
+      </div>
+    </Fragment>
+  );
 }
+
+export default CreateDashboard;

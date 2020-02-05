@@ -1,73 +1,33 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import AlertMsg from '../components/AlertMsg'
 import axios from 'axios';
 
-export default class SignUpRoute extends Component {
-  constructor(props) {
-    super(props);
+const SignUp = () => {
+  // Defining states
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [email, setEmail] = useState('');
+  const [visible, setVisible] = useState(false);
 
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangeLastname = this.onChangeLastname.bind(this);
-    this.onChangeFirstname = this.onChangeFirstname.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  // Defining port
+  const port = process.env.PORT || "http://localhost:5000";
 
-    this.port = process.env.PORT || "http://localhost:5000";
-
-    this.state = {
-      username: '',
-      password: '',
-      firstname: '',
-      lastname: '',
-      email: '',
-      visible: false,
-    }
-  }
-
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value
-    })
-  }
-
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value
-    })
-  }
-
-  onChangeFirstname(e) {
-    this.setState({
-      firstname: e.target.value
-    })
-  }
-
-  onChangeLastname(e) {
-    this.setState({
-      lastname: e.target.value
-    })
-  }
-
-  onChangeEmail(e) {
-    this.setState({
-      email: e.target.value
-    })
-  }
-
-  async onSubmit(e) {
+  // When submit button is pressed
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let visible = false;
 
     const user = {
-      username: this.state.username,
-      password: this.state.password,
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
-      email: this.state.email,
+      username: username,
+      password: password,
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
     }
 
-    await axios.post(this.port + '/users', user)
+    await axios.post(port + '/users', user)
       .then(function(res){
         if(res.data.auth == true && res.data.token != undefined){
           sessionStorage.setItem('token', res.data.token);
@@ -75,72 +35,70 @@ export default class SignUpRoute extends Component {
       })
       .catch(function(err){
         visible = true;
-        console.log("Error in login");
-      })
+        console.log("Error in login", err);
+      });
 
-    this.setState({
-      username: '',
-      password: '',
-      firstname: '',
-      lastname: '',
-      email: '',
-      visible: visible,
-    })
+    setUsername('');
+    setPassword('');
+    setLastname('');
+    setFirstname('');
+    setEmail('');
+    setVisible(visible);
   }
 
-  render() {
-    return (
-      <Fragment>
-        <div className="jumbotron">
-          <h1 className="display-4 text-center">Sign Up</h1>
-        </div>
-        
-        <div className="container mt-3">
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group"> 
-              <label>Username: </label>
-              <input type="text"
-                  required
-                  className="form-control"
-                  value={this.state.username}
-                  onChange={this.onChangeUsername}
-                  />
-              <label>Password: </label>
-              <input type="text"
-                  required
-                  className="form-control"
-                  value={this.state.password}
-                  onChange={this.onChangePassword}
-                  />
-              <label>First Name: </label>
-              <input type="text"
-                  required
-                  className="form-control"
-                  value={this.state.firstname}
-                  onChange={this.onChangeFirstname}
-                  />
-              <label>Last Name: </label>
-              <input type="text"
-                  required
-                  className="form-control"
-                  value={this.state.lastname}
-                  onChange={this.onChangeLastname}
-                  />
-              <label>Email: </label>
-              <input type="text"
-                  required
-                  className="form-control"
-                  value={this.state.email}
-                  onChange={this.onChangeEmail}
-                  />
-            </div>
-            <div className="form-group">
-              <input type="submit" value="Create User" className="btn btn-primary" />
-            </div>
-          </form>
-          <AlertMsg visible={this.state.visible} message="User already exist! Use different username"/>
-        </div>
-      </Fragment>
-    )
-  }
+  return (
+    <Fragment>
+      <div className="jumbotron">
+        <h1 className="display-4 text-center">Sign Up</h1>
+      </div>
+      
+      <div className="container mt-3">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group"> 
+            <label>Username: </label>
+            <input type="text"
+                required
+                className="form-control"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                />
+            <label>Password: </label>
+            <input type="text"
+                required
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+            <label>First Name: </label>
+            <input type="text"
+                required
+                className="form-control"
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
+                />
+            <label>Last Name: </label>
+            <input type="text"
+                required
+                className="form-control"
+                value={lastname}
+                onChange={(e) => setLastname(e.target.value)}
+                />
+            <label>Email: </label>
+            <input type="text"
+                required
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                />
+          </div>
+          <div className="form-group">
+            <input type="submit" value="Create User" className="btn btn-primary" />
+          </div>
+        </form>
+        <AlertMsg visible={visible} message="User already exist! Use different username"/>
+      </div>
+    </Fragment>
+  );
 }
+
+export default SignUp;

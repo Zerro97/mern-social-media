@@ -175,7 +175,7 @@ Most commonly used status are 200, 400(Wrong Syntax) and 404(Not Found).
 ## Authentication
 Currently I am using JWT Based Authentication for user login.<br>
 
-When creating a new user, the given password should be hashed (not encrypted since then it could be decrypted) and stored in the database.<br>
+When creating a new user, the given password should be hashed (not encrypted since then it could be decrypted) and stored in the database. The hashing algorithm for password is bcrypt (bcrypt is slow hashing algorithm which is better than fast hashing such as SHA256)<br>
 
 During login, the application compares encrypted user password in database with given password and receives a token if they matches.<br>
 

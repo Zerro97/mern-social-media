@@ -23,6 +23,8 @@ let jwt = require('jsonwebtoken');
 let config = require('../config');
 let midObj = require('../middleware');
 
+const saltRounds = 10;
+
 /**
  * GET
  * This is only used for testing. Users shouldn't have access (make GET request) to other users information
@@ -47,7 +49,9 @@ router.route('/').get((req, res) => {
  * Res: Return token
  */
 router.route('/').post((req, res) => {
-  const hashedPassword = bcrypt.hashSync(req.body.password, 8);
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
   const username = req.body.username;
   const firstname = req.body.firstname;
   const lastname = req.body.lastname;
