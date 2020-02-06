@@ -10,14 +10,17 @@ const postSchema = new Schema({
     required: true,
     unique: true,
     trim: true,
-    minlength: 3
   },
   description: {
     type: String,
     required: true,
     trim: true,
-    minlength: 5,
   },
+  imageUrl: {
+    type: String,
+    required: false,
+    trim: true,
+  }
   /*author: {
     id: {
         type: mongoose.Schema.Types.ObjectId,

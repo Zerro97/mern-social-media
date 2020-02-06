@@ -1,20 +1,31 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState, Fragment } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { TokenContext } from '../contexts/TokenContext'
+import styles from '../styles/components/Navigation.module.scss';
+import UserBox from "./UserBox";
 
 const Navigation = () => {
   const { token, dispatch } = useContext(TokenContext);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   const logOut = () => {
     dispatch({ type: 'REMOVE_TOKEN' });
+    setIsLoggedOut(true);
   }
 
-  const isLoggedIn = () => {
+  const renderRedirect = () => {
+    if (isLoggedOut) {
+      return <Redirect to='/' />
+    }
+  }
+
+  const determineRender = () => {
     return token ? (
       <div className="collpase navbar-collapse">
         <ul className="navbar-nav ml-auto">
+          <UserBox type="Navigation" userName="Zerro"/>
           <li className="nav-item">
-            <Link className="nav-link" onClick={logOut}>Log Out</Link>
+            <div className={styles.logOut + " nav-link"} onClick={logOut}>Log Out</div>
           </li>
         </ul>
       </div>
@@ -33,23 +44,27 @@ const Navigation = () => {
   }
 
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-      <Link to="/" className="navbar-brand">Home</Link>
-      <div className="collpase navbar-collapse">
-        <ul className="navbar-nav mr-auto">
-          <li className="navbar-item">
-            <Link to="/about" className="nav-link">About</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/create" className="nav-link">Create</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/profile" className="nav-link">Profile</Link>
-          </li>
-        </ul>
-        {isLoggedIn()}
-      </div>
-    </nav>
+    <Fragment>
+      {renderRedirect()}
+
+      <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+        <Link to="/" className="navbar-brand">Home</Link>
+        <div className="collpase navbar-collapse">
+          <ul className="navbar-nav mr-auto">
+            <li className="navbar-item">
+              <Link to="/about" className="nav-link">About</Link>
+            </li>
+            <li className="navbar-item">
+              <Link to="/create" className="nav-link">Create</Link>
+            </li>
+            <li className="navbar-item">
+              <Link to="/profile" className="nav-link">Profile</Link>
+            </li>
+          </ul>
+          {determineRender()}
+        </div>
+      </nav>
+    </Fragment>
   );
 }
 

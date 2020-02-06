@@ -1,3 +1,5 @@
+let jwt = require('jsonwebtoken');
+let config = require('../config');
 /**
  * Provides middleware functions. Middleware functions have access to request, response and next function.
  */

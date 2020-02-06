@@ -17,10 +17,10 @@ const CreateDashboard = () => {
       </div>
       <div className={styles.container}>
         <div className={styles.createBox}>
-          <CreateBox color="#95c4fc" title="Post"/>
+          <CreateBox color="#95c4fc" title="Post" url="/create_post"/>
         </div>
         <div className={styles.createBox}>
-          <CreateBox color="#ff837a" title="Group"/>
+          <CreateBox color="#ff837a" title="Group" url="/create_group"/>
         </div>
       </div>
     </Fragment>

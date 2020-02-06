@@ -1,7 +1,7 @@
 export const TokenReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TOKEN':
-        return {token: action.token};
+        return action.token;
     case 'REMOVE_TOKEN':
         return null;
     default: {

@@ -35,12 +35,14 @@ const videosRouter = require('./routes/videos');
 const audiosRouter = require('./routes/audios');
 const loginRouter = require('./routes/login');
 const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
 
 app.use('/images', imagesRouter);
 app.use('/videos', videosRouter);
 app.use('/audios', audiosRouter);
 app.use('/login', loginRouter);
 app.use('/users', usersRouter);
+app.use('/posts', postsRouter);
 
 
 

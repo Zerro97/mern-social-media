@@ -2,12 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/components/CreateBox.module.scss';
 
-const CreateBox = () => {
-    // Defining states
-    const [color, setColor] = useState('');
-    const [title, setTitle] = useState('');
-    const [url, setUrl] = useState('');
-
+const CreateBox = ({color, title, url}) => {
     return (
         <Fragment>
             <Link to={url} style={{backgroundColor: color}} className={styles.container + " rounded"}>
@@ -18,9 +13,3 @@ const CreateBox = () => {
 }
   
 export default CreateBox;
-
-/*this.setState({
-    color: this.props.color,
-    title: this.props.title,
-    url: "/create_" + this.props.title.toLowerCase(),
-})*/

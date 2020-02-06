@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import AlertMsg from '../components/AlertMsg'
 import { TokenContext } from '../contexts/TokenContext'
@@ -7,7 +8,7 @@ const LogIn = () => {
   // Defining states
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [visible, setVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Defining port
   const port = process.env.PORT || "http://localhost:5000";
@@ -15,10 +16,16 @@ const LogIn = () => {
   // Defining token context
   const { token, dispatch } = useContext(TokenContext);
 
+  // Redirect after successful login
+  const renderRedirect = () => {
+    if (isLoggedIn) {
+      return <Redirect to='/' />
+    }
+  }
+
   // When submit button is pressed
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let visible = false;
 
     const user = {
       username: username,
@@ -29,21 +36,21 @@ const LogIn = () => {
       .then(function(res){
         if(res.data.auth == true && res.data.token != undefined){
           dispatch({ type: 'ADD_TOKEN', token: res.data.token });
+          setIsLoggedIn(true);
         }
       })
       .catch(function(err){
-        visible = true;
         console.log("Error in login", err);
       })
 
       setUsername('');
       setPassword('');
-      setVisible(visible);
   }
 
   // Render
   return (
     <Fragment>
+      {renderRedirect()}
       <div className="jumbotron">
         <h1 className="display-4 text-center">Log In</h1>
       </div>
@@ -72,7 +79,7 @@ const LogIn = () => {
             <input type="submit" value="Log In" className="btn btn-primary" />
           </div>
         </form>
-        <AlertMsg visible={visible} message="Wrong username and password!"/>
+        <AlertMsg visible={isLoggedIn} message="Wrong username and password!"/>
       </div>
     </Fragment>
   );
