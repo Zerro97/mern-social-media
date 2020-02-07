@@ -1,4 +1,5 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
+import axios from 'axios';
 import UserBox from "./UserBox";
 import HeaderImage from '../assets/images/default-image.jpg';
 import styles from '../styles/components/PostBox.module.scss';
@@ -13,6 +14,30 @@ const PostBox = ({title, description, image}) => {
     const [userImage, setUserImage] = useState('');
     const [userName, setUserName] = useState('Zerro');
 
+    // Defining port
+    const port = process.env.PORT || "http://localhost:5000";
+
+    //componentDidMount
+    useEffect(() => {
+        const imageData = {
+            key: image
+        }
+
+        // Fetch image from S3
+        async function fetchPost() {
+            await axios.put(port + '/images', imageData)
+                .then(function(res){
+                    setUserImage(res.data);
+                })
+                .catch(function(err){
+                    console.log("Error in get to post route", err);
+                })
+        }
+
+        fetchPost();
+
+    }, []);
+
     return (
         <Fragment>
             <div className={styles.container + " border rounded"}>
@@ -23,7 +48,7 @@ const PostBox = ({title, description, image}) => {
                     </div>
                 </div>
 
-                <img src={HeaderImage} className={styles.headerImage}></img>
+                <img src={userImage} className={styles.headerImage}></img>
 
                 <div className={styles.innerContainer}>
                     <div className={styles.description}>{description}</div>

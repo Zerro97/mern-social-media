@@ -17,17 +17,16 @@ The primary goal of this project is to practice building web application using M
 
 ## Description
 While not complete, I plan to add the following features to the application:<br>
-* Signup and login
-* Upload profile picture
-* Make a post with title, description, images, tags
-* Make a comment on the post
-* Chat interface
+- [x] Signup and login
+- [ ] Upload profile picture
+- [ ] Make a post with title, description, images (near done)
+- [ ] Make a comment on the post
+- [ ] Chat interface
 
 
 #### Current To Do
-* React CSS Modularization using webpack
-* Styling file uploader button
 * Retrieving files from S3 and displaying on website
+* Work on associating post with user
 
 
 ## Files/Folders Explanation
@@ -125,7 +124,7 @@ Server side routes are used for restful API calls and accessing database.<br>
 | /login                                  | ✔︎             |                |     | ✔︎    |     |        |
 | /users/                                 |               |                |     | ✔︎    |     |        |
 | /users/`<users_id>`                     |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
-| /post/                                  |               | ✔︎              | ✔︎   | ✔︎    | ✔︎   | ✔︎      |
+| /post/                                  |               | ✔︎              | ✔︎   | ✔︎    |     |        |
 | /post/`<post_id>`                       |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
 | /videos/                                |               | ✔︎              | ✔︎   | ✔︎    |     |        |
 | /videos/`<sermon_id>`                   |               | ✔︎              | ✔︎   |      | ✔︎   | ✔︎      |
@@ -136,6 +135,8 @@ Server side routes are used for restful API calls and accessing database.<br>
 
 
 #### Notes
+While post contains image, getting an image will require making api calls to images route instead of post route. To get specific image, the application first have to fetch the name of the image for specific post from the post route and then make subsequent api call to images route to fetch image from S3 bucket.<br><br>
+
 While in development the application is locally hosted (meaning they are in the same IP address without the need of using internet), they are still in a different port (3000 & 5000) (port is layer 3 or 4 of OSI model). I still have to consider [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) problems as it is accessing resources from different [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin). 
 
 

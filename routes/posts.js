@@ -1,24 +1,36 @@
 const router = require('express').Router();
-const s3api = require('../s3api.js');
+const { getSignedUrl } = require('../s3api.js');
 let {checkToken, addBucketName} = require('../middleware');
 let Post = require('../models/post.model');
 
 /**
  * GET
- * Returns array of audios & description. Probably will return URL to the audio link
+ * Returns array of post. Probably will return URL to the audio link
  * 
  * Req: Token
  * Res: Array of audio & description.
  */
-router.route('/').get((req, res) => {
+router.route('/').get(addBucketName, (req, res) => {
+    // Find the posts from the database
     Post.find({}, function(err, posts){
-		if(err) {
-			console.log(err);
-			console.log("Error in comment default route");
-		} else {
-			res.status(200).send(posts);
-		}
-	})
+        if(err) {
+            console.log(err);
+            res.status(500).send("Error in finding post from the database")
+        } else {
+            res.status(200).send(posts);
+        }
+    });
+
+    //fetchPost();
+    //console.log(postArr);
+    
+    // Fetch the image for individual posts from the S3
+    /*for(let i=0; i<postArr.length; i++) {
+        req.body.key = postArr[i].imageUrl;
+        getObjects(req,res);
+    }*/
+
+
 });
 
 /**
@@ -29,17 +41,16 @@ router.route('/').get((req, res) => {
  * Res: Message indicating if it succeeded or not
  */
 router.route('/').post(checkToken, addBucketName, (req, res) => {
-    s3api.getSignedUrl(req,res);
+    getSignedUrl(req,res);
 
     const title = req.body.title;
     const description = req.body.description;
-    const fileParts = req.body.fileParts;
-    const fileFullName = fileParts[0] + "." + fileParts[1];
+    const fileName = req.body.fileName;
   
     const newPost = new Post({
         title: title, 
         description: description,
-        imageUrl: fileFullName,
+        imageUrl: fileName,
     });
 
     newPost.save()
