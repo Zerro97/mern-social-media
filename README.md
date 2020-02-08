@@ -207,7 +207,15 @@ Controlling permissions are achieved by policy which is an object that can be at
 Remember to store the access key and secret key generated when creating IAM user.
 
 ### AWS S3
+There is file named s3api.js which includes some s3 api functions. These functions are called in the server side routes to interact with s3 bucket. For example, when uploading photos (included in a post) to S3, the client side would make API call to '/posts' route with given information such as title, description and image file. The server would then make api calls to s3 with the information about the image (such as file name, file type and bucket name) and store the image in the bucket.
 
+As for retrieving files from s3, I'm currently thinking of using getobject function to get the data from s3 and then using fs.writefile() to write the file data to local folder. These files will then be used anywhere in my website.
+
+I'm still wondering how projects regarding s3 is structured. It seems redundunt or even defeat the purpose of using s3 buckets if I'm going to download the files from s3 and store it again in my project (like the same image files are both in s3 bucket and in my local project folders). I found out that I can include the data straight from the s3 and use them in img tag as base64 encoded without having to download them (ex. src='data:image/jpeg;base64,/9j/4AAQSkZJRgA...'), but this was discouraged for larger files. 
+
+It seems like webpack does this inline html through url-loader and once file gets big, it instead refer the data from url using file-loader. However, I think using file-loader would still mean i have to download the image in my local folder.
+
+The other simpler way would be referring the image straight from aws s3 url (ex. "https://s3.amazonaws.com/bucketname/foldername/imagename.jpg") but this only works if the image is declared public (which is bad since any people can view the images).
 
 [General Explanation](https://medium.com/@pmuens/aws-fundamentals-what-is-iam-b57f2fb88f66)
 [S3 Documentation](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/js-sdk-dv.pdf#s3-node-examples)<br>
@@ -223,7 +231,7 @@ If you do not have node.js installed, install it from [Node.js Website](https://
 ### Nodemon
 Nodemon is useful for developing node js applications as it automatically restart the application when file changes. I have installed it globally and thus it is **not** part of local node_modules folder. You need to install it globally if you wish to use it.
 #### `npm install -g nodemon`
-Run the above code in the server folder (./server). If the permission is denied during installation, read the following [link](https://stackoverflow.com/questions/47252451/permission-denied-when-installing-npm-modules-in-osx) by antzhrek
+Run the above code. If the permission is denied during installation, read the following [link](https://stackoverflow.com/questions/47252451/permission-denied-when-installing-npm-modules-in-osx) by antzhrek
 
 ### MongoDB Atlas
 For this web application, I'm hosting cloud based database using MongoDB Atlas. You need to create mongoDB account at [mongoDB website](https://www.mongodb.com/)

@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserBox from "./UserBox";
 import HeaderImage from '../assets/images/default-image.jpg';
 import styles from '../styles/components/PostBox.module.scss';
+//import imageTxt from './image.txt'
 
 const PostBox = ({title, description, image}) => {
     // Defining states
@@ -27,7 +28,7 @@ const PostBox = ({title, description, image}) => {
         async function fetchPost() {
             await axios.put(port + '/images', imageData)
                 .then(function(res){
-                    setUserImage(res.data);
+                    setUserImage(res.data.result);
                 })
                 .catch(function(err){
                     console.log("Error in get to post route", err);
@@ -35,7 +36,7 @@ const PostBox = ({title, description, image}) => {
         }
 
         fetchPost();
-
+        console.log(userImage);
     }, []);
 
     return (
@@ -48,7 +49,7 @@ const PostBox = ({title, description, image}) => {
                     </div>
                 </div>
 
-                <img src={userImage} className={styles.headerImage}></img>
+                <img src={""} className={styles.headerImage}></img>
 
                 <div className={styles.innerContainer}>
                     <div className={styles.description}>{description}</div>

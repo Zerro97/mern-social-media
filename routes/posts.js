@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { getSignedUrl } = require('../s3api.js');
-let {checkToken, addBucketName} = require('../middleware');
-let Post = require('../models/post.model');
+const {checkToken, addBucketName} = require('../middleware');
+const Post = require('../models/post.model');
+
 
 /**
  * GET

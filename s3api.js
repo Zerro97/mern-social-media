@@ -88,8 +88,15 @@ exports.getObjects = function (req, res) {
     s3.getObject(params, function (err, data) {
         if (err) {
             return res.send({ "error": err });
+        } else {          
+            console.log(data);  
+            fs.writeFile(__dirname + '/client/src/assets/images/temp.png', data.Body, function(err){
+                if(err) {
+                    console.log(err.code, "-", err.message);
+                }
+            });
+            res.send({ data });
         }
-        res.send({ data });
     });
 }
 

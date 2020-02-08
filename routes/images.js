@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { getObjects } = require('../s3api.js');
-let {checkToken, addBucketName} = require('../middleware');
+const {checkToken, addBucketName} = require('../middleware');
 const {aws_secret_key, aws_user_key, aws_bucket_name} = require('../config');
+const fs = require('fs');
 
 /**
  * GET
@@ -33,7 +34,7 @@ router.route('/').post((req, res) => {
  * Res: Message indicating if it succeeded or not
  */
 router.route('/').put(addBucketName, getObjects, (req, res) => {
-    console.log(req.body);
+
 });
 
 
