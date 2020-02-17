@@ -29,6 +29,7 @@ middlewareObj.checkToken = function(req, res, next){
     jwt.verify(token, config.private_key, function(err, decoded) {
         // If token is invalid or error occurs
         if (err) {
+            console.log("Can't authenticate token")
             return res.status(500).send({
                 auth: false,
                 message: 'Failed to authenticate token.'

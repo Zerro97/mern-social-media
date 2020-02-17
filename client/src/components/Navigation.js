@@ -9,13 +9,14 @@ const Navigation = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   const logOut = () => {
+    console.log("logOut clicked!")
     dispatch({ type: 'REMOVE_TOKEN' });
     setIsLoggedOut(true);
   }
 
   const renderRedirect = () => {
     if (isLoggedOut) {
-      return <Redirect to='/' />
+      //return <Redirect to='/' />
     }
   }
 
@@ -45,7 +46,6 @@ const Navigation = () => {
 
   return (
     <Fragment>
-      {renderRedirect()}
 
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
         <Link to="/" className="navbar-brand">Home</Link>

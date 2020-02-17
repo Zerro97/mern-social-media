@@ -68,11 +68,28 @@ const CreatePost = () => {
         // Store the file in the S3
         axios.put(signedRequest,file,options)
           .then(result => {
+            console.log(result)
             setMadePost(true);
           })
           .catch(error => {
             alert("ERROR " + JSON.stringify(error));
           })
+
+
+        const imageData = {
+          image: fileName + "." + fileType,
+          key: fileName,
+        }
+
+        // Download the file from the S3 and store it in images folder
+        axios.put(port + '/images', imageData)
+          .then(function(res){
+            console.log(res)
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+
       })
       .catch(function(err){
         console.log("Error in post to post route", err);

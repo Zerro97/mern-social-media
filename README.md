@@ -19,7 +19,7 @@ The primary goal of this project is to practice building web application using M
 While not complete, I plan to add the following features to the application:<br>
 - [x] Signup and login
 - [ ] Upload profile picture
-- [ ] Make a post with title, description, images (near done)
+- [x] Make a post with title, description, images
 - [ ] Make a comment on the post
 - [ ] Chat interface
 

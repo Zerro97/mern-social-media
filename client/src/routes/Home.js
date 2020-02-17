@@ -32,7 +32,7 @@ const Home = () => {
 
     for(let i=0; i<posts.length; i++){
       postArr.push(
-        <PostBox key={i} title={posts[i].title} description={posts[i].description} image={posts[i].imageUrl}/>
+        <PostBox key={i} title={posts[i].title} description={posts[i].description} imageName={posts[i].imageName} imageType={posts[i].imageType}/>
       )
     }
 

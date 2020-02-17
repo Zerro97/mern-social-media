@@ -3,40 +3,43 @@ import axios from 'axios';
 import UserBox from "./UserBox";
 import HeaderImage from '../assets/images/default-image.jpg';
 import styles from '../styles/components/PostBox.module.scss';
-//import imageTxt from './image.txt'
 
-const PostBox = ({title, description, image}) => {
+import Image from '../assets/images/dog.png';
+
+// Example:
+// image = "dog.png"
+const PostBox = ({title, description, imageName, imageType}) => {
     // Defining states
     //const [title, setUseTitle] = useState('Hi');
     //const [description, setDescription] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
-    //const [image, setImage] = useState('');
-    const [comment, setComment] = useState('');
 
+    const [comment, setComment] = useState('');
     const [userImage, setUserImage] = useState('');
     const [userName, setUserName] = useState('Zerro');
+    const [postImage, setPostImage] = useState('');
 
     // Defining port
     const port = process.env.PORT || "http://localhost:5000";
 
     //componentDidMount
     useEffect(() => {
-        const imageData = {
-            key: image
-        }
+        const imageUrl = require("../assets/images/" + imageName + "." + imageType).default 
+        setPostImage(imageUrl);
 
-        // Fetch image from S3
-        async function fetchPost() {
+        // Fetch image from S3 & download it in images folder
+        /*async function fetchPost() {
             await axios.put(port + '/images', imageData)
                 .then(function(res){
-                    setUserImage(res.data.result);
+                    setPostImage("../images/" + image);
+                    console.log("../images/" + image);
                 })
                 .catch(function(err){
-                    console.log("Error in get to post route", err);
+                    console.log(err);
+                    console.log("../images/" + image);
                 })
         }
+        fetchPost();*/
 
-        fetchPost();
-        console.log(userImage);
     }, []);
 
     return (
@@ -49,7 +52,7 @@ const PostBox = ({title, description, image}) => {
                     </div>
                 </div>
 
-                <img src={""} className={styles.headerImage}></img>
+                <img src={postImage} className={styles.headerImage}></img>
 
                 <div className={styles.innerContainer}>
                     <div className={styles.description}>{description}</div>

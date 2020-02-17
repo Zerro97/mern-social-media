@@ -46,12 +46,16 @@ router.route('/').post(checkToken, addBucketName, (req, res) => {
 
     const title = req.body.title;
     const description = req.body.description;
+    const file = req.body.fileParts[0] + '.' + req.body.fileParts[1];
     const fileName = req.body.fileName;
-  
+    const fileType = req.body.fileType;
+
     const newPost = new Post({
         title: title, 
         description: description,
-        imageUrl: fileName,
+        image: file,
+        imageName: fileName,
+        imageType: fileType,
     });
 
     newPost.save()

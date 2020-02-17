@@ -35,6 +35,11 @@ router.route('/').post((req, res) => {
  */
 router.route('/').put(addBucketName, getObjects, (req, res) => {
 
+    fs.writeFile(__dirname + '/../client/src/assets/images/' + req.body.image, req.body.content, { flag: 'wx' }, function(err){
+        if(err) {
+            console.log(err.code, "-", err.message);
+        }
+    });
 });
 
 

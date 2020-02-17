@@ -16,7 +16,17 @@ const postSchema = new Schema({
     required: true,
     trim: true,
   },
-  imageUrl: {
+  image: {
+    type: String,
+    required: false,
+    trim: true,
+  },
+  imageName: {
+    type: String,
+    required: false,
+    trim: true,
+  },
+  imageType: {
     type: String,
     required: false,
     trim: true,

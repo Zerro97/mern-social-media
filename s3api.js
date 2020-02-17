@@ -81,21 +81,16 @@ exports.deleteBucketCors = function (req, res) {
  * Doc: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
  * Required params: bucket, key
  */
-exports.getObjects = function (req, res) {
+exports.getObjects = function (req, res, next) {
     let item = req.body;
     let params = { Bucket: item.bucketName, Key: item.key };
 
     s3.getObject(params, function (err, data) {
         if (err) {
             return res.send({ "error": err });
-        } else {          
-            console.log(data);  
-            fs.writeFile(__dirname + '/client/src/assets/images/temp.png', data.Body, function(err){
-                if(err) {
-                    console.log(err.code, "-", err.message);
-                }
-            });
-            res.send({ data });
+        } else {
+            req.body.content = data.Body;
+            next();
         }
     });
 }
