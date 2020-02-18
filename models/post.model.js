@@ -30,14 +30,12 @@ const postSchema = new Schema({
     type: String,
     required: false,
     trim: true,
-  }
-  /*author: {
-    id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Users"
-    }
-},
-  comment: [
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users"
+  },
+  /*comment: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"

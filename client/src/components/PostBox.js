@@ -23,6 +23,7 @@ const PostBox = ({title, description, imageName, imageType}) => {
 
     //componentDidMount
     useEffect(() => {
+        // Get the image from images folder and set state
         const imageUrl = require("../assets/images/" + imageName + "." + imageType).default 
         setPostImage(imageUrl);
 

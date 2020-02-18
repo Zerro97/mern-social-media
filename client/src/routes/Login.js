@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import AlertMsg from '../components/AlertMsg'
 import { TokenContext } from '../contexts/TokenContext'
+import { UserContext } from '../contexts/UserContext'
 
 const LogIn = () => {
   // Defining states
@@ -14,7 +15,8 @@ const LogIn = () => {
   const port = process.env.PORT || "http://localhost:5000";
 
   // Defining token context
-  const { token, dispatch } = useContext(TokenContext);
+  const { token, tokenDispatch } = useContext(TokenContext);
+  const { user, userDispatch } = useContext(UserContext);
 
   // Redirect after successful login
   const renderRedirect = () => {
@@ -35,7 +37,8 @@ const LogIn = () => {
     await axios.post(port + '/login', user)
       .then(function(res){
         if(res.data.auth == true && res.data.token != undefined){
-          dispatch({ type: 'ADD_TOKEN', token: res.data.token });
+          tokenDispatch({ type: 'ADD_TOKEN', token: res.data.token });
+          userDispatch({ type: 'ADD_USER', user: res.data.user });
           setIsLoggedIn(true);
         }
       })

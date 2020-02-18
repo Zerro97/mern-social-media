@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { getSignedUrl } = require('../s3api.js');
 const {checkToken, addBucketName} = require('../middleware');
 const Post = require('../models/post.model');
+const User = require('../models/user.model');
 
 
 /**
@@ -49,16 +50,27 @@ router.route('/').post(checkToken, addBucketName, (req, res) => {
     const file = req.body.fileParts[0] + '.' + req.body.fileParts[1];
     const fileName = req.body.fileName;
     const fileType = req.body.fileType;
+    const authorID = req.body.author;
 
-    const newPost = new Post({
+    // Make the new post in database
+    let newPost = new Post({
         title: title, 
         description: description,
         image: file,
         imageName: fileName,
         imageType: fileType,
+        author: authorID,
     });
-
     newPost.save()
+
+    // Update the user's post
+    User.findByIdAndUpdate({"_id": authorID}, { "$push": { "posts": newPost._id } }, function(err, user){
+        if(err) {
+            console.log(err)
+        } else {
+            console.log(user);
+        }
+    });
 });
 
 
@@ -73,7 +85,18 @@ router.route('/').post(checkToken, addBucketName, (req, res) => {
  * Res: Audio mongoose model
  */
 router.route('/:id').get((req, res) => {
-
+    if(req.body.id == undefined) {
+        console.log("Post id required")
+    }
+    // Find the post by id
+    Post.find({_id: req.body.id}, function(err, posts){
+        if(err) {
+            console.log(err);
+            res.status(500).send("Error in finding post from the database")
+        } else {
+            res.status(200).send(posts);
+        }
+    });
 });
 
 /**

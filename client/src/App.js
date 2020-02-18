@@ -14,12 +14,13 @@ import Login from './routes/Login'
 import About from './routes/About'
 import Home from './routes/Home'
 
-import Sample from './routes/Sample'
 import TokenProvider from './contexts/TokenContext'
+import UserProvider from './contexts/UserContext'
 
 function App() {
   return (
     <TokenProvider>
+    <UserProvider>
       <Router history={createBrowserHistory()}>
         <Navigation />
         <Switch>
@@ -31,9 +32,9 @@ function App() {
           <Route path="/login" component={Login}/>
           <Route path="/signup" component={SignUp}/>
           <Route path="/about" component={About}/>
-          <Route path="/sample" component={Sample}/>
         </Switch>
       </Router>
+    </UserProvider>
     </TokenProvider>
   );
 }

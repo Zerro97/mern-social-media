@@ -2,6 +2,7 @@ import React, { Fragment, useState, useContext } from 'react';
 import AlertMsg from '../components/AlertMsg'
 import axios from 'axios';
 import { TokenContext } from '../contexts/TokenContext'
+import { UserContext } from '../contexts/UserContext'
 
 const SignUp = () => {
   // Defining states
@@ -16,7 +17,8 @@ const SignUp = () => {
   const port = process.env.PORT || "http://localhost:5000";
 
   // Defining token context
-  const { token, dispatch } = useContext(TokenContext);
+  const { token, tokenDispatch } = useContext(TokenContext);
+  const { user, userDispatch } = useContext(UserContext);
 
   // When submit button is pressed
   const handleSubmit = async (e) => {
@@ -34,7 +36,8 @@ const SignUp = () => {
     await axios.post(port + '/users', user)
       .then(function(res){
         if(res.data.auth == true && res.data.token != undefined){
-          dispatch({ type: 'ADD_TOKEN', token: res.data.token });
+          tokenDispatch({ type: 'ADD_TOKEN', token: res.data.token });
+          userDispatch({ type: 'ADD_USER', user: res.data.user });
         }
       })
       .catch(function(err){

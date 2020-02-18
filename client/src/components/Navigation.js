@@ -1,22 +1,31 @@
-import React, { useContext, useState, Fragment } from 'react';
+import React, { useContext, useState, useEffect, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { TokenContext } from '../contexts/TokenContext'
+import { UserContext } from '../contexts/UserContext'
 import styles from '../styles/components/Navigation.module.scss';
 import UserBox from "./UserBox";
 
 const Navigation = () => {
-  const { token, dispatch } = useContext(TokenContext);
+  const { token, tokenDispatch } = useContext(TokenContext);
+  const { user, userDispatch } = useContext(UserContext);
   const [isLoggedOut, setIsLoggedOut] = useState(false);
 
+  //componentDidMount
+  useEffect(() => {
+    // Make sure state is set to false every time component is mounted
+    setIsLoggedOut(false);
+  })
+
   const logOut = () => {
-    console.log("logOut clicked!")
-    dispatch({ type: 'REMOVE_TOKEN' });
+    tokenDispatch({ type: 'REMOVE_TOKEN' });
+    userDispatch({ type: 'REMOVE_USER'})
+
     setIsLoggedOut(true);
   }
 
   const renderRedirect = () => {
     if (isLoggedOut) {
-      //return <Redirect to='/' />
+      return <Redirect to='/login' />
     }
   }
 
@@ -46,7 +55,7 @@ const Navigation = () => {
 
   return (
     <Fragment>
-
+      {renderRedirect()}
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
         <Link to="/" className="navbar-brand">Home</Link>
         <div className="collpase navbar-collapse">

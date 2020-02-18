@@ -14,17 +14,13 @@ const Home = () => {
   //componentDidMount
   useEffect(() => {
     // Fetch post
-    async function fetchPost() {
-      await axios.get(port + '/posts')
-        .then(function(res){
-          setPosts(res.data);
-        })
-        .catch(function(err){
-          console.log("Error in get to post route", err);
-        })
-    }
-
-    fetchPost();
+    axios.get(port + '/posts')
+      .then(function(res){
+        setPosts(res.data);
+      })
+      .catch(function(err){
+        console.log("Error at client routes Home. Error during GET request to posts route", err);
+      })
   }, []);
 
   const displayPost = () => {

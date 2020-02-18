@@ -37,6 +37,10 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
   },
+  posts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'post'
+  }]
 }, {
   timestamps: true,
 });

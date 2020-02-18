@@ -4,14 +4,14 @@ import { TokenReducer } from '../reducers/TokenReducer';
 export const TokenContext = createContext();
 
 const TokenContextProvider = (props) => {
-  const [token, dispatch] = useReducer(TokenReducer, null);
+  const [token, tokenDispatch] = useReducer(TokenReducer, null);
 
   useEffect(() => {
     localStorage.setItem('token', JSON.stringify(token));
   }, [token]);
 
   return (
-    <TokenContext.Provider value={{ token, dispatch }}>
+    <TokenContext.Provider value={{ token, tokenDispatch }}>
       {props.children}
     </TokenContext.Provider>
   );
